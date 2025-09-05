@@ -1,9 +1,21 @@
 import { ICourse } from "../models/course.model"
 
 export interface CoursesState {
-    courses: ICourse[]
+    courses: ICourse[],
+    coursesFilter: {
+        category: string;
+        instructor: string;
+        maxPrice: number | null;
+        minRating: number | null;
+    }
 }
 
 export const initialState: CoursesState = {
-    courses: []
+    courses: [],
+    coursesFilter: {
+        category: "",
+        instructor: "",
+        maxPrice: null,
+        minRating: null
+    }
 }

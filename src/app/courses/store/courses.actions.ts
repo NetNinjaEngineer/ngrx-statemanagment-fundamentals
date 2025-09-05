@@ -1,3 +1,6 @@
-import { createAction } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
+import { ICourseFilter } from "../models/courseFilter";
 
-export const loadCourses = createAction('[Courses] loadCourses');
+export const loadCourses = createAction('[courses]/loadCourses');
+
+export const filterCourses = createAction('[courses]/filterCourses', props<{ filter: ICourseFilter }>())

@@ -4,5 +4,10 @@ export interface ICourse {
     description: string,
     image: string,
     author: string,
-    price: number
+    price: number,
+    instructor: string,
+    duration: number,
+    rating: number,
+    isActive: boolean,
+    category: string
 }

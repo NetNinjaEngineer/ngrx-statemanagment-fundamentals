@@ -11,6 +11,7 @@ import { counterReducer } from './counter/state/counter.reducer';
 import { FormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { coursesReducer } from './courses/store/courses.reducers';
+import { CourseFilterComponent } from './courses/course-filter/course-filter.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { coursesReducer } from './courses/store/courses.reducers';
     CoursesComponent,
     CounterComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    CourseFilterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 <div class="courses-container">
+    <app-course-filter (coursesFilterChanged)="coursesFilterChanged($event)" ></app-course-filter>
     <div class="course-card" *ngFor="let course of courses$ | async">
         <img [src]="course.image" [alt]="course.title" class="course-image" />
 
@@ -6,9 +7,19 @@
             <h3 class="course-title">{{ course.title }}</h3>
             <p class="course-description">{{ course.description }}</p>
 
+            <div class="course-meta">
+                <span class="course-category">📂 {{ course.category }}</span>
+                <span class="course-duration">⏱ {{ course.duration }} hrs</span>
+            </div>
+
             <div class="course-footer">
-                <span class="course-author">👨‍🏫 {{ course.author }}</span>
+                <span class="course-instructor">👨‍🏫 {{ course.instructor }}</span>
+                <span class="course-rating">⭐ {{ course.rating }}</span>
                 <span class="course-price">${{ course.price }}</span>
+            </div>
+
+            <div *ngIf="!course.isActive" class="course-badge">
+                Not Available
             </div>
         </div>
     </div>
