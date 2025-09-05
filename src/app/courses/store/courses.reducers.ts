@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialState } from "./courses.state";
-import { filterCourses, loadCourses } from "./courses.actions";
+import { filterCourses, loadCourses, searchCourses } from "./courses.actions";
 
 export const coursesReducer = createReducer(
     initialState,
@@ -80,6 +80,12 @@ export const coursesReducer = createReducer(
         return {
             ...state,
             coursesFilter: filter
+        }
+    }),
+    on(searchCourses, (state, { searchTerm }) => {
+        return {
+            ...state,
+            searchQuery: searchTerm
         }
     })
 );

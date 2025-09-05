@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { coursesReducer } from './courses/store/courses.reducers';
 import { CourseFilterComponent } from './courses/course-filter/course-filter.component';
+import { SearchCoursesComponent } from './courses/search-courses/search-courses.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CourseFilterComponent } from './courses/course-filter/course-filter.com
     CounterComponent,
     HomeComponent,
     HeaderComponent,
-    CourseFilterComponent
+    CourseFilterComponent,
+    SearchCoursesComponent
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@ import { CounterComponent } from './counter/counter.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, title: 'Home' },
-  { path: 'courses', component: CoursesComponent, title: 'Courses' },
+  { path: 'courses', component: CoursesComponent, title: "courses-list" },
   { path: 'counter', component: CounterComponent, title: 'Counter' }
 ];
 

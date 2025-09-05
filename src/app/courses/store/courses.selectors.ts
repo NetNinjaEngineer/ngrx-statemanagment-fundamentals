@@ -22,3 +22,28 @@ export const selectFilteredCourses = createSelector(
     }
 
 );
+
+export const selectSeachQuery = createSelector(selectCoursesState, coursesState => coursesState.searchQuery);
+
+export const selectSearchedCourses = createSelector(
+    selectCourses,
+    selectSeachQuery,
+    (courses, searchQuery) => {
+
+        console.log(searchQuery);
+
+
+        if (!searchQuery) {
+            return courses;
+        }
+
+        const lowerQuery = searchQuery.toLowerCase();
+
+        return courses.filter(course =>
+            course.title.toLowerCase().includes(lowerQuery) ||
+            course.description.toLowerCase().includes(lowerQuery) ||
+            course.instructor.toLowerCase().includes(lowerQuery) ||
+            course.category.toLowerCase().includes(lowerQuery)
+        );
+    }
+)

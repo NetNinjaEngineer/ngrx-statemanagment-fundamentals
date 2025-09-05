@@ -1,0 +1,7 @@
+<div class="search-container">
+    <input type="text" placeholder="🔍 Search for a course..." (input)="onSearch(searchInput)" class="search-input"
+        #searchInput />
+    <button *ngIf="searchInput.value" class="clear-btn" (click)="searchInput.value=''; onSearch(searchInput)">
+        ✖
+    </button>
+</div>
