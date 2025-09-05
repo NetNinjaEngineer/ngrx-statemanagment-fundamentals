@@ -1,0 +1,19 @@
+<div class="container text-center mt-5">
+    <h2 class="mb-4">Counter Component</h2>
+    <h3 class="display-4">{{ count$ | async }}</h3>
+
+    <div class="mt-3">
+        <button class="btn btn-success me-2" (click)="increment()">
+            Increment
+        </button>
+        <button class="btn btn-danger me-2" (click)="decrement()">Decrement</button>
+        <button class="btn btn-secondary" (click)="reset()">Reset</button>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-center">
+        <input type="number" [(ngModel)]="value" class="form-control w-25 me-2" />
+        <button class="btn btn-primary" (click)="incrementByInput()">
+            Increment by Input
+        </button>
+    </div>
+</div>
