@@ -1,1 +1,15 @@
-<p>courses works!</p>
+<div class="courses-container">
+    <div class="course-card" *ngFor="let course of courses$ | async">
+        <img [src]="course.image" [alt]="course.title" class="course-image" />
+
+        <div class="course-content">
+            <h3 class="course-title">{{ course.title }}</h3>
+            <p class="course-description">{{ course.description }}</p>
+
+            <div class="course-footer">
+                <span class="course-author">👨‍🏫 {{ course.author }}</span>
+                <span class="course-price">${{ course.price }}</span>
+            </div>
+        </div>
+    </div>
+</div>
