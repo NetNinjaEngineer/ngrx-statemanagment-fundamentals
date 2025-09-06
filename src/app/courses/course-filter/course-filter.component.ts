@@ -12,7 +12,7 @@ export class CourseFilterComponent {
   maxPrice: number | null = null;
   minRating: number | null = null;
 
-  categories: string[] = ["Frontend", "Backend"];
+  categories: string[] = ["Frontend", "Backend", "Web Development"];
   instructors: string[] = ["Jane Smith", "John Doe", "Mike Johnson"];
 
   @Output()

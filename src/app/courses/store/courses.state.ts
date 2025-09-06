@@ -8,7 +8,8 @@ export interface CoursesState {
         maxPrice: number | null;
         minRating: number | null;
     },
-    searchQuery: string
+    searchQuery: string,
+    showCreateCourseForm: boolean
 }
 
 export const initialState: CoursesState = {
@@ -19,5 +20,6 @@ export const initialState: CoursesState = {
         maxPrice: null,
         minRating: null
     },
-    searchQuery: ""
+    searchQuery: "",
+    showCreateCourseForm: false
 }

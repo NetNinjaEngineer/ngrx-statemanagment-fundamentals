@@ -1,4 +1,13 @@
 <div class="courses-container">
+
+    <div class="create-course-container">
+        <app-create-course-button (createCourseClicked)="onCreateCourse()"></app-create-course-button>
+    </div>
+
+    <app-create-course-modal *ngIf="isCreateCourseFormVisible$ | async">
+    </app-create-course-modal>
+
+
     <!-- Controls -->
     <div class="controls">
         <div class="search-box">

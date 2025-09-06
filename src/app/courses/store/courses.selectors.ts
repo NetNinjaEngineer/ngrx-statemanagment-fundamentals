@@ -47,3 +47,6 @@ export const selectSearchedCourses = createSelector(
         );
     }
 )
+
+
+export const selectIsCreateCourseModalOpen = createSelector(selectCoursesState, coursesState => coursesState.showCreateCourseForm);

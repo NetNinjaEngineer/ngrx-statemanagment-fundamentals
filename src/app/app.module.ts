@@ -8,11 +8,13 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { StoreModule } from '@ngrx/store';
 import { counterReducer } from './counter/state/counter.reducer';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { coursesReducer } from './courses/store/courses.reducers';
 import { CourseFilterComponent } from './courses/course-filter/course-filter.component';
 import { SearchCoursesComponent } from './courses/search-courses/search-courses.component';
+import { CreateCourseButtonComponent } from './courses/create-course-button/create-course-button.component';
+import { CreateCourseModalComponent } from './courses/create-course-modal/create-course-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { SearchCoursesComponent } from './courses/search-courses/search-courses.
     HomeComponent,
     HeaderComponent,
     CourseFilterComponent,
-    SearchCoursesComponent
+    SearchCoursesComponent,
+    CreateCourseButtonComponent,
+    CreateCourseModalComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,8 @@ import { SearchCoursesComponent } from './courses/search-courses/search-courses.
       courses: coursesReducer
     }),
     FormsModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,10 +3,9 @@ import { Store } from '@ngrx/store';
 import { CoursesState } from './store/courses.state';
 import { Observable } from 'rxjs';
 import { ICourse } from './models/course.model';
-import { selectCourses, selectFilteredCourses, selectSeachQuery, selectSearchedCourses } from './store/courses.selectors';
-import { filterCourses, loadCourses, searchCourses } from './store/courses.actions';
+import { selectCourses, selectFilteredCourses, selectIsCreateCourseModalOpen, selectSeachQuery, selectSearchedCourses } from './store/courses.selectors';
+import { filterCourses, loadCourses, searchCourses, setCreateCourseFormVisible } from './store/courses.actions';
 import { ICourseFilter } from './models/courseFilter';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -14,9 +13,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './courses.component.css'
 })
 export class CoursesComponent implements OnInit {
+
   courses$: Observable<ICourse[]> | null = null;
   searchedCourses$: Observable<ICourse[]> | null = null;
   searchTerm$: Observable<string> | null = null;
+  isCreateCourseFormVisible$: Observable<boolean> | undefined;
 
   constructor(private readonly store: Store<{ courses: CoursesState }>) { }
 
@@ -26,6 +27,7 @@ export class CoursesComponent implements OnInit {
     this.courses$ = this.store.select(selectFilteredCourses);
     this.searchedCourses$ = this.store.select(selectSearchedCourses);
     this.searchTerm$ = this.store.select(selectSeachQuery);
+    this.isCreateCourseFormVisible$ = this.store.select(selectIsCreateCourseModalOpen);
   }
 
   coursesFilterChanged(filter: ICourseFilter) {
@@ -38,6 +40,10 @@ export class CoursesComponent implements OnInit {
     this.store.dispatch(searchCourses({ searchTerm }));
   }
 
+
+  onCreateCourse() {
+    this.store.dispatch(setCreateCourseFormVisible({ showCreateCourse: true }));
+  }
 
 
 }

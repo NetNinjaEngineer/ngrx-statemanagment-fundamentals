@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialState } from "./courses.state";
-import { filterCourses, loadCourses, searchCourses } from "./courses.actions";
+import { createCourse, filterCourses, loadCourses, searchCourses, setCreateCourseFormVisible } from "./courses.actions";
 
 export const coursesReducer = createReducer(
     initialState,
@@ -86,6 +86,20 @@ export const coursesReducer = createReducer(
         return {
             ...state,
             searchQuery: searchTerm
+        }
+    }),
+    on(setCreateCourseFormVisible, (state, action) => {
+        return {
+            ...state,
+            showCreateCourseForm: action.showCreateCourse
+        }
+    }),
+    on(createCourse, (state, action) => {
+        const courseToAdd = { ...action.course };
+        courseToAdd.id = state.courses.length + 1;
+        return {
+            ...state,
+            courses: [...state.courses, courseToAdd]
         }
     })
 );
