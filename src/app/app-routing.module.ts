@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { CoursesComponent } from './courses/courses.component';
-import { CounterComponent } from './counter/counter.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, title: 'Home' },
-  { path: 'courses', component: CoursesComponent, title: "courses-list" },
-  { path: 'counter', component: CounterComponent, title: 'Counter' }
+  { path: 'courses', loadChildren: () => import('./features/courses/courses.module').then(m => m.CoursesModule) },
+  { path: 'counter', loadChildren: () => import('./features/counter/counter.module').then(m => m.CounterModule) },
+  { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
 ];
 
 @NgModule({

@@ -1,0 +1,44 @@
+<div class="modal-overlay">
+    <div class="modal-content">
+        <h2>{{ !isEditMode ? 'Create New Course' : 'Update the course' }}</h2>
+
+        <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+            <label>Title</label>
+            <input formControlName="title" type="text" />
+
+            <label>Description</label>
+            <textarea formControlName="description"></textarea>
+
+            <label>Image URL</label>
+            <input formControlName="image" type="text" />
+
+            <label>Author</label>
+            <input formControlName="author" type="text" />
+
+            <label>Instructor</label>
+            <input formControlName="instructor" type="text" />
+
+            <label>Category</label>
+            <input formControlName="category" type="text" />
+
+            <label>Price</label>
+            <input formControlName="price" type="number" />
+
+            <label>Duration (hrs)</label>
+            <input formControlName="duration" type="number" />
+
+            <label>Rating (0-5)</label>
+            <input formControlName="rating" type="number" />
+
+            <label>
+                <input formControlName="isActive" type="checkbox" />
+                Active
+            </label>
+
+            <div class="modal-actions">
+                <button type="submit" [disabled]="courseForm.invalid">{{ !isEditMode ? 'Save' : 'Update' }}</button>
+                <button type="button" (click)="close()" *ngIf="!isEditMode">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
