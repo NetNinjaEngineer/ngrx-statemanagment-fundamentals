@@ -44,8 +44,8 @@ export class AuthEffects {
         return this.actions$.pipe(
             ofType(loginSuccess),
             tap((action) => {
-                console.log(action);
-                
+                // save token in the local storage
+                localStorage.setItem('token', action.user.Token);
                 this.router.navigate(['/home']);
             })
         )

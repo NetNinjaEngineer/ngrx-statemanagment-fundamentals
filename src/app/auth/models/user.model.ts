@@ -10,4 +10,8 @@ export class User {
         return this.email;
     }
 
+    get Token(): string {
+        return this.token;
+    }
+
 }
