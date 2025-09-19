@@ -8,6 +8,9 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
+
+            <li><a href="#"> {{ (loggedInUser$ | async)?.Email }} </a></li>
+
             <li class="nav-item">
                 <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
             </li>

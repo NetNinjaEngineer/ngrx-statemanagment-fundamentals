@@ -1,2 +1,12 @@
 <app-header></app-header>
-<router-outlet></router-outlet>
+<main>
+    @if (showLoading$ | async) {
+    <app-shared-loading-spinner></app-shared-loading-spinner>
+    }
+
+    @if (errorMessage$|async) {
+    <div class="alert alert-danger">{{ errorMessage$|async}}</div>
+    }
+
+    <router-outlet></router-outlet>
+</main>

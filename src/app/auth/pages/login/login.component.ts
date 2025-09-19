@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { map, of } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
-import { ILoginResponse } from '../../models/loginResponse';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../../store/auth.state';
+import { loginStart } from '../../store/auth.actions';
+import { SharedState } from '../../../shared/store/shared.state';
+import { setLoadingSpinner } from '../../../shared/store/shared.actions';
 
 @Component({
     selector: 'app-login',
@@ -14,7 +16,7 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private readonly fb: NonNullableFormBuilder,
-        private readonly authService: AuthService) {
+        private readonly store: Store<{ auth: AuthState, shared: SharedState }>) {
     }
 
     ngOnInit(): void {
@@ -25,15 +27,9 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.loginForm.valid) {
-            const { email, password } = this.loginForm.value;
-
-            this.authService.login(email, password).subscribe((response: ILoginResponse) => {
-                console.log('Login successful', response);            });
-
-        } else {
-            console.log('Form is invalid');
-        }
+        const { email, password } = this.loginForm.value;
+        this.store.dispatch(setLoadingSpinner({ isLoading: true }));
+        this.store.dispatch(loginStart({ email, password }));
     }
 
 }
