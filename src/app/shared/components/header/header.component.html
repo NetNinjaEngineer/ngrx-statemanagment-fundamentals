@@ -20,9 +20,19 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="/courses" routerLinkActive="active">Courses</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/auth/login" routerLinkActive="active">Login</a>
+
+            <li class="nav-item" *ngIf="isAuthenticated$|async; else auth">
+                <a class="nav-link" href="#">Logout</a>
             </li>
+
+            <ng-template #auth>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/auth/register" routerLinkActive="active">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/auth/login" routerLinkActive="active">Login</a>
+                </li>
+            </ng-template>
         </ul>
     </div>
 </nav>

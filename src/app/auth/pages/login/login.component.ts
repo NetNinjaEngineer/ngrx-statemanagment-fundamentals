@@ -5,6 +5,7 @@ import { AuthState } from '../../store/auth.state';
 import { loginStart } from '../../store/auth.actions';
 import { SharedState } from '../../../shared/store/shared.state';
 import { setLoadingSpinner } from '../../../shared/store/shared.actions';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
