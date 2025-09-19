@@ -6,16 +6,22 @@ import { isAuthenticated } from '../../auth/store/auth.selectors';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const store = inject(Store<{ auth: AuthState }>);
   const token = localStorage.getItem('token');
+  const store = inject(Store<{ auth: AuthState }>);
 
-  let isLoggedIn = false;
+  let loggedIn = false;
 
-  store.select(isAuthenticated).subscribe(status => {
-    isLoggedIn = status;
+  store.select(isAuthenticated).subscribe((status) => {
+    loggedIn = status;
   });
 
-  if (!isLoggedIn && !token) {
+  if (!loggedIn) {
+    router.navigate(['/auth/login']);
+    return false;
+  }
+
+
+  if (!token) {
     router.navigate(['/auth/login']);
     return false;
   }

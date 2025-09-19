@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { loginStart, loginSuccess } from "./auth.actions";
+import { loginStart, loginSuccess, registerStart } from "./auth.actions";
 import { catchError, exhaustMap, map, of, tap } from "rxjs";
 import { AuthService } from "../services/auth.service";
 import { Store } from "@ngrx/store";
@@ -39,6 +39,26 @@ export class AuthEffects {
         )
     });
 
+    register$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(registerStart),
+            exhaustMap((action) => {
+                return this.authService.register(action.email, action.password).pipe(
+                    map(data => {
+                        this.store.dispatch(setLoadingSpinner({ isLoading: false }));
+                        const user = this.authService.formatUser(data);
+                        return loginSuccess({ user });
+                    }),
+                    catchError((errResponse) => {
+                        this.store.dispatch(setLoadingSpinner({ isLoading: false }));
+                        const errorMessage = this.authService.getErrorMessage(errResponse.error.error.message);
+                        return of(setErrorMessage({ message: errorMessage }))
+                    })
+                )
+            })
+        )
+    });
+
 
     loginRedirect$ = createEffect(() => {
         return this.actions$.pipe(
@@ -49,6 +69,6 @@ export class AuthEffects {
                 this.router.navigate(['/home']);
             })
         )
-    }, {dispatch: false}) 
+    }, { dispatch: false })
 
 }

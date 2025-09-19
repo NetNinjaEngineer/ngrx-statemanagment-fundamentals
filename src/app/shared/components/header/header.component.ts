@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthState } from '../../../auth/store/auth.state';
 import { User } from '../../../auth/models/user.model';
 import { isAuthenticated, selectLoggedInUser } from '../../../auth/store/auth.selectors';
+import { logout } from '../../../auth/store/auth.actions';
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -18,5 +19,9 @@ export class HeaderComponent implements OnInit {
     ngOnInit(): void {
         this.loggedInUser$ = this.store.select(selectLoggedInUser);
         this.isAuthenticated$ = this.store.select(isAuthenticated);
+    }
+
+    onLogout() {
+        this.store.dispatch(logout())
     }
 }

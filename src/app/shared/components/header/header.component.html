@@ -20,10 +20,12 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="/courses" routerLinkActive="active">Courses</a>
             </li>
-
-            <li class="nav-item" *ngIf="isAuthenticated$|async; else auth">
-                <a class="nav-link" href="#">Logout</a>
+            <li class="nav-item" *ngIf="isAuthenticated$ | async; else auth">
+                <button class="btn logout-btn" (click)="onLogout()">
+                    Logout
+                </button>
             </li>
+
 
             <ng-template #auth>
                 <li class="nav-item">

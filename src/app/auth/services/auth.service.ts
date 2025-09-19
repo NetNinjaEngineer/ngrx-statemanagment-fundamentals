@@ -16,6 +16,11 @@ export class AuthService {
     return this.httpClient.post<ILoginResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`, { email, password, returnSecureToken: true });
   }
 
+
+  register(email: string, password: string): Observable<ILoginResponse> {
+    return this.httpClient.post<ILoginResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`, { email, password, returnSecureToken: true });
+  }
+
   formatUser(userData: ILoginResponse): User {
     const expirationDate = new Date(new Date().getTime() + +userData.expiresIn * 1000);
     const user = new User(userData.email, userData.localId, userData.idToken, expirationDate);
@@ -23,11 +28,13 @@ export class AuthService {
   }
 
   getErrorMessage(errCode: string) {
-    switch(errCode) {
+    switch (errCode) {
       case 'EMAIL_NOT_FOUND':
         return 'Email not found.';
       case 'INVALID_PASSWORD':
-        return 'Invalid password.'
+        return 'Invalid password.';
+      case 'EMAIL_EXISTS':
+        return 'Email is taken.'
       default:
         return 'Unkown error occured, please try again later.'
     }
