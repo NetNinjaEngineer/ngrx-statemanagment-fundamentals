@@ -1,14 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { selectCount } from './state/counter.selector';
 import { CounterState } from './state/counter.state';
 import { decrement, increment, incrementBy, reset } from './state/counter.actions';
+import { LoggerService } from '../../services/logger.service';
 
 @Component({
   selector: 'app-counter',
   templateUrl: './counter.component.html',
-  styleUrl: './counter.component.css'
+  styleUrl: './counter.component.css',
+  // providers: [LoggerService] // component level
 })
 export class CounterComponent implements OnInit {
   count$: Observable<number> | null = null;
@@ -16,10 +18,15 @@ export class CounterComponent implements OnInit {
   counterSubscription: Subscription | null = null;
   value: number = 0;
 
-  constructor(private readonly store: Store<{ counter: CounterState }>) { }
+  constructor(private readonly store: Store<{ counter: CounterState }>,
+    private readonly loggerService: LoggerService
+  ) { }
 
 
   ngOnInit(): void {
+
+    this.loggerService.log('CounterComponent initialized');
+
     this.count$ = this.store.select(selectCount);
   }
 

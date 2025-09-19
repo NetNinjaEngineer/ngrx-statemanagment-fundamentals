@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CounterRoutingModule } from './counter-routing.module';
 import { CounterComponent } from './counter.component';
-import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { counterReducer } from './state/counter.reducer';
@@ -16,7 +15,8 @@ import { counterReducer } from './state/counter.reducer';
     CounterRoutingModule,
     FormsModule,
     StoreModule.forFeature('counter', counterReducer)
-  ],
-  exports: []
+  ],  
+  exports: [],
+  // providers: [LoggerService] // module level  
 })
 export class CounterModule { }

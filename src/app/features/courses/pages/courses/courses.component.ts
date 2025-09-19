@@ -6,6 +6,7 @@ import { deleteCourse, filterCourses, loadCourses, searchCourses, setCreateCours
 import { ICourse } from '../../models/course.model';
 import { CoursesState } from '../../store/courses.state';
 import { ICourseFilter } from '../../models/courseFilter';
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -21,9 +22,14 @@ export class CoursesComponent implements OnInit, OnDestroy {
   isEditMode: boolean = false;
   editModeSubscription!: Subscription;
 
-  constructor(private readonly store: Store<{ courses: CoursesState }>) { }
+  constructor(private readonly store: Store<{ courses: CoursesState }>,
+    private readonly coursesService: CoursesService
+  ) { }
 
   ngOnInit(): void {
+
+    console.log(this.coursesService.doSomething());
+
     this.store.dispatch(loadCourses());
 
     this.courses$ = this.store.select(selectFilteredCourses);
