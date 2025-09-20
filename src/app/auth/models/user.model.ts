@@ -14,4 +14,8 @@ export class User {
         return this.token;
     }
 
+    get ExpireDate(): Date {
+        return this.expirationDate;
+    }
+
 }

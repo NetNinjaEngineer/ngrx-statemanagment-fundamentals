@@ -12,6 +12,7 @@ import { authFeatureKey } from './auth/store/auth.selectors';
 import { SharedLoadingSpinnerComponent } from './shared/components/shared-loading-spinner/shared-loading-spinner.component';
 import { sharedFeatureKey } from './shared/store/shared.selectors';
 import { sharedReducer } from './shared/store/shared.reducer';
+import { AuthEffects } from './auth/store/auth.effects';
 
 // export const LOGGER_SERVICE_TOKEN = new InjectionToken<LoggerService>('LoggerToken');
 
@@ -26,7 +27,7 @@ import { sharedReducer } from './shared/store/shared.reducer';
     AppRoutingModule,
     StoreModule.forRoot({ [authFeatureKey]: authReducer, [sharedFeatureKey]: sharedReducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([AuthEffects])
   ],
   providers: [provideHttpClient()], // application level
   bootstrap: [AppComponent]

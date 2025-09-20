@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, JsonpInterceptor } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ILoginResponse } from '../models/loginResponse';
 import { Observable } from 'rxjs';
@@ -9,6 +9,8 @@ import { FIREBASE_API_KEY } from '../../constants';
   providedIn: 'root'
 })
 export class AuthService {
+
+  interval: any;
 
   constructor(private readonly httpClient: HttpClient) { }
 
@@ -37,6 +39,41 @@ export class AuthService {
         return 'Email is taken.'
       default:
         return 'Unkown error occured, please try again later.'
+    }
+  }
+
+  setUserInLocalStorage(user: User) {
+    localStorage.setItem('userData', JSON.stringify(user));
+
+    const todaysDate = new Date().getTime();
+    const expirationDate = user.ExpireDate.getTime();
+
+    const timeInterval = expirationDate - todaysDate;
+
+    this.interval = setTimeout(() => {
+      // logout functionality or get a refresh token
+      this.logout();
+    }, timeInterval);
+
+  }
+
+  getUserFromLocalStorage(): User | null {
+    const userDataString = localStorage.getItem('userData');
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      const expirationDate = new Date(userData.expirationDate);
+      const user = new User(userData.email, userData.localId, userData.token, expirationDate);
+      return user;
+    }
+
+    return null;
+  }
+
+  logout() {
+    localStorage.removeItem('userData');
+    if (this.interval) {
+      clearTimeout(this.interval);
+      this.interval = null
     }
   }
 

@@ -1,0 +1,47 @@
+<div id="postModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" (click)="onCloseModalClicked()">&times;</span>
+        <h2>Create / Edit Post</h2>
+
+        <form id="postForm" [formGroup]="postForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" placeholder="Enter post title" formControlName="title" />
+            </div>
+
+            <div class="form-group">
+                <label for="body">Body</label>
+                <textarea id="body" placeholder="Write your post..." formControlName="body"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="tags">Tags (comma separated)</label>
+                <input type="text" id="tags" placeholder="e.g. angular, typescript" formControlName="tags" />
+            </div>
+
+            <div class="form-group">
+                <label for="userId">User ID</label>
+                <input type="number" id="userId" formControlName="userId" />
+            </div>
+
+            <div class="form-group">
+                <label for="views">Views</label>
+                <input type="number" id="views" formControlName="views" />
+            </div>
+
+            <div class="form-group reactions" formGroupName="reactions">
+                <label>Reactions</label>
+                <div>
+                    <input type="number" id="likes" formControlName="likes" />
+                    <label for="likes">Likes</label>
+                </div>
+                <div>
+                    <input type="number" id="dislikes" formControlName="dislikes" />
+                    <label for="dislikes">Dislikes</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Save Post</button>
+        </form>
+    </div>
+</div>
