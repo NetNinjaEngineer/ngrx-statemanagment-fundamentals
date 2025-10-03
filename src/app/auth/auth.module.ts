@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from './store/auth.effects';
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -15,10 +13,9 @@ import { AuthEffects } from './store/auth.effects';
     RegisterComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    EffectsModule.forFeature([])
   ]
 })
 export class AuthModule { }

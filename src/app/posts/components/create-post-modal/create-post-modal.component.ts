@@ -1,29 +1,34 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { IPost } from '../../models/post.model';
 import { Store } from '@ngrx/store';
 import { PostsState } from '../../store/posts.state';
-import { addPost } from '../../store/posts.actions';
+import { addPost, showCreatePostForm, updatePost } from '../../store/posts.actions';
 import { SharedState } from '../../../shared/store/shared.state';
 import { setLoadingSpinner } from '../../../shared/store/shared.actions';
+import { selectEditMode, selectSelectedPost } from '../../store/posts.selectors';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-post-modal',
   templateUrl: './create-post-modal.component.html',
   styleUrl: './create-post-modal.component.css'
 })
-export class CreatePostModalComponent implements OnInit {
+export class CreatePostModalComponent implements OnInit, OnDestroy {
 
   @Output() onCloseModalBtnClicked = new EventEmitter<void>();
 
   postForm!: FormGroup;
 
-  constructor(
-    private readonly fb: NonNullableFormBuilder,
-    private readonly store: Store<{ posts: PostsState, shared: SharedState }>) { }
+  isEditMode!: boolean;
+  selectedPost!: IPost | null;
+  selectedPostSubscription!: Subscription;
 
-  ngOnInit(): void {
-    this.postForm = this.fb.group({
+
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly store: Store<{ posts: PostsState, shared: SharedState }>) {
+        this.postForm = this.fb.group({
       title: new FormControl('', [Validators.required]),
       body: new FormControl('', [Validators.required]),
       tags: new FormControl('', [Validators.required]),
@@ -38,6 +43,27 @@ export class CreatePostModalComponent implements OnInit {
     })
   }
 
+  ngOnInit(): void {
+
+    this.store.select(selectEditMode).subscribe((status) => {
+      this.isEditMode = status;
+    });
+
+    this.selectedPostSubscription = this.store.select(selectSelectedPost).subscribe((post) => {
+      this.selectedPost = post;
+      if (this.isEditMode && this.selectedPost) {
+        this.postForm.patchValue(this.selectedPost);
+      } else {
+        this.postForm.reset();
+      }
+    });
+
+  }
+
+  ngOnDestroy(): void {
+    this.selectedPostSubscription.unsubscribe();
+  }
+
 
   onCloseModalClicked() {
     this.onCloseModalBtnClicked.emit();
@@ -45,19 +71,29 @@ export class CreatePostModalComponent implements OnInit {
 
   onSubmit() {
     if (this.postForm.valid) {
-      const post: IPost = {
-        id: 0,
-        title: this.postForm.value.title,
-        body: this.postForm.value.body,
-        tags: this.postForm.value.tags.split(','),
-        userId: this.postForm.value.userId,
-        views: this.postForm.value.views,
-        reactions: this.postForm.value.reactions
+
+      if (!this.isEditMode) {
+        const post: IPost = {
+          title: this.postForm.value.title,
+          body: this.postForm.value.body,
+          tags: this.postForm.value.tags.split(','),
+          userId: this.postForm.value.userId,
+          views: this.postForm.value.views,
+          reactions: this.postForm.value.reactions
+        }
+
+        this.store.dispatch(setLoadingSpinner({ isLoading: true }));
+
+        this.store.dispatch(addPost({ post }));
       }
+      else {
+        if (this.selectedPost?.id) {
+          const updatedPost: IPost = { ...this.selectedPost, ...this.postForm.value } as IPost;
 
-      this.store.dispatch(setLoadingSpinner({ isLoading: true }));
-
-      this.store.dispatch(addPost({ post }));
+          this.store.dispatch(updatePost({ id: this.selectedPost.id, data: updatedPost }));
+          this.store.dispatch(showCreatePostForm({ status: false }));
+        }
+      }
 
     }
   }

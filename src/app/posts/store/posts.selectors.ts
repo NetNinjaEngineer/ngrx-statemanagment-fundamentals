@@ -11,3 +11,8 @@ export const selectIsCreatePostFormVisible = createSelector(
     selectPostsState,
     state => state.showCreatePostForm
 );
+
+
+export const selectEditMode = createSelector(selectPostsState, state => state.isEditMode);
+
+export const selectSelectedPost = createSelector(selectPostsState, state => state.selectedPost);

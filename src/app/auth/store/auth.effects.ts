@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { authLogin, loginStart, loginSuccess, logout, registerStart, registerSuccess } from "./auth.actions";
-import { catchError, exhaustMap, map, mergeMap, of, tap } from "rxjs";
+import {catchError, exhaustMap, map, mergeMap, of, tap} from "rxjs";
 import { AuthService } from "../services/auth.service";
 import { Store } from "@ngrx/store";
 import { SharedState } from "../../shared/store/shared.state";
@@ -87,8 +87,7 @@ export class AuthEffects {
             ofType(authLogin),
             map((action) => {
                 const user = this.authService.getUserFromLocalStorage();
-                console.log(user);
-                
+
                 if (user && user.Token) {
                     return loginSuccess({ user });
                 } else {
@@ -97,5 +96,16 @@ export class AuthEffects {
             })
         )
     });
+
+
+    logout$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(logout),
+            tap((action) => {
+                this.authService.logout();
+                this.router.navigate(['/auth'])
+            })
+        )
+    }, { dispatch: false })
 
 }

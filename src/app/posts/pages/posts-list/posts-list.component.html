@@ -23,8 +23,8 @@
                 <span>👀 {{ post.views }}</span>
             </div>
             <div class="actions">
-                <button class="btn btn-update btn-warning">Update</button>
-                <button class="btn btn-delete btn-danger">Delete</button>
+                <button class="btn btn-update btn-warning" (click)="onUpdatePost(post)"  >Update</button>
+                <button class="btn btn-delete btn-danger" (click)="onDeletePost(post.id)">Delete</button>
             </div>
         </div>
     </div>

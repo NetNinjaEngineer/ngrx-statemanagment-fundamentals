@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialState } from "./posts.state";
-import { addPostSuccess, loadPostsSuccess, showCreatePostForm } from "./posts.actions";
+import { addPostSuccess, deletePostSuccess, loadPostsSuccess, setEditMode, setSelectedPost, showCreatePostForm, updatePostSuccess } from "./posts.actions";
 
 export const postsReducer = createReducer(
     initialState,
@@ -20,6 +20,38 @@ export const postsReducer = createReducer(
         return {
             ...state,
             posts: [...state.posts, action.post]
+        }
+    }),
+    on(deletePostSuccess, (state, { postId }) => {
+        const updatedPosts = state.posts.filter(p => p.id !== postId);
+        return {
+            ...state,
+            posts: updatedPosts
+        }
+    }),
+    on(setEditMode, (state, { status }) => {
+        return {
+            ...state,
+            isEditMode: status
+        }
+    }),
+    on(setSelectedPost, (state, { post }) => {
+        return {
+            ...state,
+            selectedPost: post
+        }
+    }),
+    on(updatePostSuccess, (state, action) => {
+        const updatedPosts = state.posts.map(post => {
+            if (post.id === action.post.id)
+                return action.post;
+            else
+                return post;
+        });
+
+        return {
+            ...state,
+            posts: updatedPosts
         }
     })
 ); 

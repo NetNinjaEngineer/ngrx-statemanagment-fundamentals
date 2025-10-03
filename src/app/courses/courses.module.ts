@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,6 +8,7 @@ import { CreateCourseButtonComponent } from './components/create-course-button/c
 import { SearchCoursesComponent } from './components/search-courses/search-courses.component';
 import { CourseFilterComponent } from './components/course-filter/course-filter.component';
 import { coursesReducer } from './store/courses.reducers';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { coursesReducer } from './store/courses.reducers';
     CoursesComponent,
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     CoursesRoutingModule,

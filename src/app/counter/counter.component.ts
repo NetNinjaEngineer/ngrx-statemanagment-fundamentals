@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { selectCount } from './state/counter.selector';
 import { CounterState } from './state/counter.state';
 import { decrement, increment, incrementBy, reset } from './state/counter.actions';
-import { LoggerService } from '../shared/services/logger.service';
+import { LoggerService } from '../core/services/logger.service';
 
 @Component({
   selector: 'app-counter',

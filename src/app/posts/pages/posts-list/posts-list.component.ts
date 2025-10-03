@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PostsState } from '../../store/posts.state';
-import { loadPosts, showCreatePostForm } from '../../store/posts.actions';
+import { deletePost, loadPosts, setEditMode, setSelectedPost, showCreatePostForm } from '../../store/posts.actions';
 import { Observable } from 'rxjs';
 import { IPost } from '../../models/post.model';
 import { getPosts, selectIsCreatePostFormVisible } from '../../store/posts.selectors';
@@ -34,6 +34,23 @@ export class PostsListComponent implements OnInit {
 
   onCloseModal() {
     this.store.dispatch(showCreatePostForm({ status: false }));
+  }
+
+  onDeletePost(id: string | undefined) {
+    if (id) {
+      if (confirm(`Are you sure to delete this post #${id} ?`)) {
+        this.store.dispatch(deletePost({ id }))
+      }
+    }
+
+  }
+
+  onUpdatePost(selectedPost: IPost) {
+    if (selectedPost.id) {
+      this.store.dispatch(showCreatePostForm({ status: true }));
+      this.store.dispatch(setEditMode({ status: true }));
+      this.store.dispatch(setSelectedPost({ post: selectedPost }));
+    }
   }
 
 

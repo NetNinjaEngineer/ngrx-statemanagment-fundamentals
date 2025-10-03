@@ -1,13 +1,12 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { PostsService } from "../services/posts.service";
-import { addPost, addPostSuccess, loadPosts, loadPostsSuccess, showCreatePostForm } from "./posts.actions";
-import { exhaustMap, map, mergeMap } from "rxjs";
+import { addPost, addPostSuccess, deletePost, deletePostSuccess, loadPosts, loadPostsSuccess, showCreatePostForm, updatePost, updatePostSuccess } from "./posts.actions";
+import { catchError, exhaustMap, map, mergeMap, of } from "rxjs";
 import { Store } from "@ngrx/store";
 import { PostsState } from "./posts.state";
 import { SharedState } from "../../shared/store/shared.state";
-import { setLoadingSpinner } from "../../shared/store/shared.actions";
-import { IPost } from "../models/post.model";
+import {setErrorMessage, setLoadingSpinner} from "../../shared/store/shared.actions";
 
 @Injectable()
 export class PostsEffects {
@@ -21,9 +20,16 @@ export class PostsEffects {
             exhaustMap(() => {
                 return this.postsService.getPosts().pipe(
                     map((data) => {
+                        console.log(data);
+
                         this.store.dispatch(setLoadingSpinner({ isLoading: false }));
                         return loadPostsSuccess({ posts: data })
-                    })
+                    }),
+                  catchError((eResponse) => {
+                    console.log(eResponse);
+                    this.store.dispatch(setLoadingSpinner({ isLoading: false }));
+                    return of();
+                  })
                 )
             })
         )
@@ -33,20 +39,60 @@ export class PostsEffects {
         return this.actions$.pipe(
             ofType(addPost),
             mergeMap((action) => {
-                return this.postsService.getPosts().pipe(
-                    mergeMap((posts) => {
-                        const newId = posts.length > 0
-                            ? Math.max(...posts.map(p => p.id)) + 1 : 1;
+                return this.postsService.addPost(action.post).pipe(
+                    map((data) => {
+                        console.log(data);
 
-                        const newPost = { ...action.post, id: newId } as IPost;
+                        this.store.dispatch(setLoadingSpinner({ isLoading: false }));
+                        this.store.dispatch(showCreatePostForm({ status: false }));
+                        return addPostSuccess({ post: action.post })
+                    }),
+                    catchError((eResponse) => {
+                        console.log(eResponse);
+                      this.store.dispatch(setLoadingSpinner({ isLoading: false }));
+                      this.store.dispatch( setErrorMessage({ message: eResponse.message }) );
+                      this.store.dispatch(showCreatePostForm({ status: false }));
+                      return of();
+                    })
+                )
+            })
+        )
+    });
 
-                        return this.postsService.addPost(newPost).pipe(
-                            map((data) => {
-                                this.store.dispatch(setLoadingSpinner({ isLoading: false }));
-                                return addPostSuccess({ post: newPost })
-                            })
-                        )
+    updatePost$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updatePost),
+            exhaustMap((action) => {
+                console.log(action);
 
+                return this.postsService.updatePost(action.id, action.data).pipe(
+                    map((result) => {
+                        console.log(result);
+                        return updatePostSuccess({ post: result}); // TODO: need testing
+                    }),
+                  catchError((eResponse) => {
+                    console.log(eResponse);
+                    this.store.dispatch(setLoadingSpinner({ isLoading: false }));
+                    return of();
+                  })
+                )
+            })
+        )
+    });
+
+
+    deletePost$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(deletePost),
+            exhaustMap((action) => {
+                return this.postsService.deletePost(action.id).pipe(
+                    map((response) => {
+                        return deletePostSuccess({ postId: action.id });
+                    }),
+                    catchError((eResponse) => {
+                        console.log(eResponse);
+                      this.store.dispatch(setLoadingSpinner({ isLoading: false }));
+                      return of();
                     })
                 )
             })

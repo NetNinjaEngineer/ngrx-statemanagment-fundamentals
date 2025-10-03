@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CoursesComponent } from './pages/courses/courses.component';
-import { authGuard } from '../shared/guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: CoursesComponent, title: 'Courses', canActivate: [authGuard] }
+  { path: '', component: CoursesComponent, title: 'Courses' }
 ];
 
 @NgModule({

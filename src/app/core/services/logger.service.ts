@@ -4,9 +4,7 @@ import { Injectable } from '@angular/core';
 // Injector ===> is responsible for maintaining a container of providers and injecting them into classes upon request
 // Token ==> is a unique identifier used to register and retrieve dependencies from the injector
 
-@Injectable({
-  providedIn: 'root' // application level // singleton // single instance
-})
+@Injectable()
 export class LoggerService {
 
   constructor() { }

@@ -17,7 +17,6 @@ export const authReducer = createReducer(
         }
     }),
     on(logout, (state) => {
-        localStorage.removeItem('userData');
         return {
             ...state,
             user: null

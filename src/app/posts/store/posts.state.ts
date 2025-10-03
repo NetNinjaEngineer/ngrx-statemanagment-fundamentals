@@ -2,10 +2,14 @@ import { IPost } from "../models/post.model";
 
 export interface PostsState {
     posts: IPost[],
-    showCreatePostForm: boolean
+    showCreatePostForm: boolean,
+    isEditMode: boolean,
+    selectedPost: IPost | null
 }
 
 export const initialState: PostsState = {
     posts: [],
-    showCreatePostForm: false
+    showCreatePostForm: false,
+    isEditMode: false,
+    selectedPost: null
 }

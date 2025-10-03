@@ -1,6 +1,6 @@
 export interface IPost {
     body: string
-    id: number
+    id?: string
     reactions: Reactions
     tags: string[]
     title: string
