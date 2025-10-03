@@ -12,6 +12,9 @@ import { logout } from '../store/auth.actions';
   providedIn: 'root'
 })
 export class AuthService {
+
+  timer: any;
+
   constructor(
     private readonly httpClient: HttpClient,
     private readonly store: Store<{ auth: AuthState }>) { }
@@ -83,13 +86,16 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('currentUser');
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
   }
 
   autoLogoutUser(loggedUser: User) {
     const todaysTime = new Date().getTime();
     const interval = loggedUser.ExpireDate.getTime() - todaysTime;
     console.log(interval);
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.store.dispatch(logout());
     }, interval);
 
