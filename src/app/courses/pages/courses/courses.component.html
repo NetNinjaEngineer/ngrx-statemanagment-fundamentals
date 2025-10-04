@@ -44,6 +44,7 @@
                         Not Available
                     </div>
                 </div>
+
             </div>
         </div>
     </ng-container>
@@ -77,6 +78,7 @@
                     <div class="course-actions">
                         <button class="edit-btn" (click)="onEditCourse(course)">✏️ Edit</button>
                         <button class="delete-btn" (click)="onDeleteCourse(course.id)">🗑️ Delete</button>
+                        <button class="btn btn-primary" (click)="goToDetails(course.id)" >Details</button>
                     </div>
 
                 </div>

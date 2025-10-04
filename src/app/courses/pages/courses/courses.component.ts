@@ -7,6 +7,7 @@ import { ICourse } from '../../models/course.model';
 import { CoursesState } from '../../store/courses.state';
 import { ICourseFilter } from '../../models/courseFilter';
 import { CoursesService } from '../../services/courses.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -14,6 +15,7 @@ import { CoursesService } from '../../services/courses.service';
   styleUrl: './courses.component.css'
 })
 export class CoursesComponent implements OnInit, OnDestroy {
+
 
   courses$: Observable<ICourse[]> | null = null;
   searchedCourses$: Observable<ICourse[]> | null = null;
@@ -23,7 +25,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
   editModeSubscription!: Subscription;
 
   constructor(private readonly store: Store<{ courses: CoursesState }>,
-    private readonly coursesService: CoursesService
+    private readonly coursesService: CoursesService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -82,6 +85,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
       console.log('Unsubscribing from editModeSubscription');
       this.editModeSubscription.unsubscribe();
     }
+  }
+
+  goToDetails(courseId: number) {
+    this._router.navigateByUrl(`courses/${courseId}`);
   }
 
 

@@ -9,6 +9,7 @@ import { SearchCoursesComponent } from './components/search-courses/search-cours
 import { CourseFilterComponent } from './components/course-filter/course-filter.component';
 import { coursesReducer } from './store/courses.reducers';
 import { SharedModule } from '../shared/shared.module';
+import { CourseDetailsComponent } from './pages/course-details/course-details.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { SharedModule } from '../shared/shared.module';
     CreateCourseButtonComponent,
     CreateCourseModalComponent,
     CoursesComponent,
+    CourseDetailsComponent,
   ],
   imports: [
     SharedModule,
