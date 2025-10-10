@@ -10,9 +10,10 @@ import { CoursesService } from '../../services/courses.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-courses',
-  templateUrl: './courses.component.html',
-  styleUrl: './courses.component.css'
+    selector: 'app-courses',
+    templateUrl: './courses.component.html',
+    styleUrl: './courses.component.css',
+    standalone: false
 })
 export class CoursesComponent implements OnInit, OnDestroy {
 

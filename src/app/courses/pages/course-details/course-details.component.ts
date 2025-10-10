@@ -8,9 +8,10 @@ import { ICourse } from '../../models/course.model';
 import { loadCourses } from '../../store/courses.actions';
 
 @Component({
-  selector: 'app-course-details',
-  templateUrl: './course-details.component.html',
-  styleUrl: './course-details.component.css'
+    selector: 'app-course-details',
+    templateUrl: './course-details.component.html',
+    styleUrl: './course-details.component.css',
+    standalone: false
 })
 export class CourseDetailsComponent implements OnInit {
   private readonly _activatedRoute = inject(ActivatedRoute);

@@ -2,9 +2,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { ICourseFilter } from '../../models/courseFilter';
 
 @Component({
-  selector: 'app-course-filter',
-  templateUrl: './course-filter.component.html',
-  styleUrl: './course-filter.component.css'
+    selector: 'app-course-filter',
+    templateUrl: './course-filter.component.html',
+    styleUrl: './course-filter.component.css',
+    standalone: false
 })
 export class CourseFilterComponent {
   selectedCategory: string = '';

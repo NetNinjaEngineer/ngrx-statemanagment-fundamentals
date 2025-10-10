@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-search-courses',
-  templateUrl: './search-courses.component.html',
-  styleUrl: './search-courses.component.css'
+    selector: 'app-search-courses',
+    templateUrl: './search-courses.component.html',
+    styleUrl: './search-courses.component.css',
+    standalone: false
 })
 export class SearchCoursesComponent {
   @Output()

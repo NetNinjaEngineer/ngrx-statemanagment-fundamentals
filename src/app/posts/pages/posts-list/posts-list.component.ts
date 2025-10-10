@@ -9,10 +9,11 @@ import { SharedState } from '../../../shared/store/shared.state';
 import { setLoadingSpinner } from '../../../shared/store/shared.actions';
 
 @Component({
-  selector: 'app-posts-list',
-  templateUrl: './posts-list.component.html',
-  styleUrl: './posts-list.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-posts-list',
+    templateUrl: './posts-list.component.html',
+    styleUrl: './posts-list.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PostsListComponent implements OnInit {
   posts$!: Observable<IPost[]>;

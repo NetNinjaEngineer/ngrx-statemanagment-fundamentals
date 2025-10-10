@@ -7,10 +7,10 @@ import { decrement, increment, incrementBy, reset } from './state/counter.action
 import { LoggerService } from '../core/services/logger.service';
 
 @Component({
-  selector: 'app-counter',
-  templateUrl: './counter.component.html',
-  styleUrl: './counter.component.css',
-  // providers: [LoggerService] // component level
+    selector: 'app-counter',
+    templateUrl: './counter.component.html',
+    styleUrl: './counter.component.css',
+    standalone: false
 })
 export class CounterComponent implements OnInit {
   count$: Observable<number> | null = null;

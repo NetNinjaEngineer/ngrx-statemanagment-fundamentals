@@ -8,9 +8,10 @@ import { getSelectedCourse } from '../../store/courses.selectors';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-create-course-modal',
-  templateUrl: './create-course-modal.component.html',
-  styleUrl: './create-course-modal.component.css'
+    selector: 'app-create-course-modal',
+    templateUrl: './create-course-modal.component.html',
+    styleUrl: './create-course-modal.component.css',
+    standalone: false
 })
 export class CreateCourseModalComponent implements OnInit, OnDestroy {
 

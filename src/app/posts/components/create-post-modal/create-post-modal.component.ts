@@ -10,9 +10,10 @@ import { selectEditMode, selectSelectedPost } from '../../store/posts.selectors'
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-create-post-modal',
-  templateUrl: './create-post-modal.component.html',
-  styleUrl: './create-post-modal.component.css'
+    selector: 'app-create-post-modal',
+    templateUrl: './create-post-modal.component.html',
+    styleUrl: './create-post-modal.component.css',
+    standalone: false
 })
 export class CreatePostModalComponent implements OnInit, OnDestroy {
 

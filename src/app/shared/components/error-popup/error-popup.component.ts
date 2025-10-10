@@ -4,9 +4,10 @@ import { SharedState } from '../../store/shared.state';
 import { setErrorMessage } from '../../store/shared.actions';
 
 @Component({
-  selector: 'app-error-popup',
-  templateUrl: './error-popup.component.html',
-  styleUrl: './error-popup.component.css'
+    selector: 'app-error-popup',
+    templateUrl: './error-popup.component.html',
+    styleUrl: './error-popup.component.css',
+    standalone: false
 })
 export class ErrorPopupComponent implements OnInit {
   @Input({ required: true }) errorMessage: string | null = '';
