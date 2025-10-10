@@ -18,6 +18,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { CoreModule } from './core/core.module';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
+import { Coursesv2Module } from './coursesv2/coursesv2.module';
 
 // export const LOGGER_SERVICE_TOKEN = new InjectionToken<LoggerService>('LoggerToken');
 
@@ -29,12 +30,13 @@ import { AngularFireModule } from '@angular/fire/compat';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ [authFeatureKey]: authReducer, [sharedFeatureKey]: sharedReducer }),
+    StoreModule.forRoot({ [authFeatureKey]: authReducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([AuthEffects]),
     SharedModule,
     CoreModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    Coursesv2Module,
   ],
   providers: [
     provideHttpClient(

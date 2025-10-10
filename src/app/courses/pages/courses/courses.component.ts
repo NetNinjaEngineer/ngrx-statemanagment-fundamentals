@@ -6,7 +6,6 @@ import { deleteCourse, filterCourses, loadCourses, searchCourses, setCreateCours
 import { ICourse } from '../../models/course.model';
 import { CoursesState } from '../../store/courses.state';
 import { ICourseFilter } from '../../models/courseFilter';
-import { CoursesService } from '../../services/courses.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -26,7 +25,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
   editModeSubscription!: Subscription;
 
   constructor(private readonly store: Store<{ courses: CoursesState }>,
-    private readonly coursesService: CoursesService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute
   ) { }

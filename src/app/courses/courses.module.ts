@@ -10,7 +10,6 @@ import { CourseFilterComponent } from './components/course-filter/course-filter.
 import { coursesReducer } from './store/courses.reducers';
 import { SharedModule } from '../shared/shared.module';
 import { CourseDetailsComponent } from './pages/course-details/course-details.component';
-import { CoursesV2Component } from './pages/courses-v2/courses-v2.component';
 
 
 @NgModule({
@@ -21,7 +20,6 @@ import { CoursesV2Component } from './pages/courses-v2/courses-v2.component';
     CreateCourseModalComponent,
     CoursesComponent,
     CourseDetailsComponent,
-    CoursesV2Component,
   ],
   imports: [
     SharedModule,
@@ -29,6 +27,7 @@ import { CoursesV2Component } from './pages/courses-v2/courses-v2.component';
     ReactiveFormsModule,
     CoursesRoutingModule,
     StoreModule.forFeature('courses', coursesReducer),
+    // EffectsModule.forFeature([CoursesEffects])
   ],
   exports: []
 })

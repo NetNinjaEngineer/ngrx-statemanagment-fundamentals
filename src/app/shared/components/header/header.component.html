@@ -24,6 +24,9 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="/courses" routerLinkActive="active">Courses</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/courses2" routerLinkActive="active">Courses2</a>
+            </li>
             <li class="nav-item" *ngIf="isAuthenticated$ | async; else auth">
                 <button class="btn logout-btn" (click)="onLogout()">
                     Logout
