@@ -1,10 +1,12 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { CloudinaryUploadService } from '../../../core/services/cloudinary-upload.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CoursesV2State } from '../../store/coursesv2.state';
-import { createCourse, setCreateCourseFormVisiable } from '../../store/coursesv2.actions';
+import { createCourse, setCreateCourseFormVisiable, updateCourse } from '../../store/coursesv2.actions';
+import { getIsEditMode, getSelectedCourseToEdit } from '../../store/coursesv2.selectors';
+import { ICourseV2 } from '../../models/courseV2.model';
 
 @Component({
     selector: 'app-create-course',
@@ -12,11 +14,13 @@ import { createCourse, setCreateCourseFormVisiable } from '../../store/coursesv2
     templateUrl: './create-course.component.html',
     styleUrl: './create-course.component.css'
 })
-export class CreateCourseComponent implements OnDestroy {
+export class CreateCourseComponent implements OnDestroy, OnInit {
 
     courseForm: FormGroup;
     selectedFile: File | null = null;
     cloudinaryUploadSubscription: Subscription | null = null;
+    isEditMode!: boolean;
+    selectCourseToEdit!: ICourseV2 | null;
 
     constructor(
         private fb: FormBuilder,
@@ -34,10 +38,31 @@ export class CreateCourseComponent implements OnDestroy {
             isActive: [true],
             category: ['', Validators.required]
         });
+
+        this.store.select(getIsEditMode).subscribe((status) => {
+            this.isEditMode = status;
+        });
+
+        this.store.select(getSelectedCourseToEdit).subscribe((selectedCourse) => {
+            this.selectCourseToEdit = selectedCourse;
+
+            if (this.isEditMode && this.selectCourseToEdit) {
+                this.courseForm.patchValue(this.selectCourseToEdit);
+            } else {
+                this.courseForm.reset();
+            }
+
+        });
+
+    }
+
+    ngOnInit(): void {
+
+
     }
 
     onSubmit() {
-        if (this.courseForm.valid) {
+        if (!this.isEditMode) {
             if (this.selectedFile) {
                 this.cloudinaryUploadSubscription = this.clouadinaryService.uploadImage(this.selectedFile).subscribe({
                     next: (response) => {
@@ -52,8 +77,14 @@ export class CreateCourseComponent implements OnDestroy {
                 });
 
             }
-        }
+        } else {
+            if (this.selectCourseToEdit?.id) {
+                const updatedCourse: ICourseV2 = { ...this.selectCourseToEdit, ...this.courseForm.value } as ICourseV2;
 
+                this.store.dispatch(updateCourse({ id: this.selectCourseToEdit.id, data: updatedCourse }));
+                this.close();
+            }
+        }
     }
 
     onFileChanged($event: Event) {

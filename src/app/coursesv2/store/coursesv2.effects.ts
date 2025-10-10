@@ -6,7 +6,7 @@ import { SharedState } from "../../shared/store/shared.state";
 import { setLoadingSpinner } from "../../shared/store/shared.actions";
 import { CoursesV2State } from "./coursesv2.state";
 import { CoursesV2Service } from "../services/coursesV2.service";
-import { createCourse, createCourseSuccess, deleteCourse, deleteCourseSuccess, loadCourses, loadCoursesSuccess } from "./coursesv2.actions";
+import { createCourse, createCourseSuccess, deleteCourse, deleteCourseSuccess, loadCourses, loadCoursesSuccess, updateCourse, updateCourseSuccess } from "./coursesv2.actions";
 
 @Injectable()
 export class CoursesV2Effects {
@@ -77,6 +77,30 @@ export class CoursesV2Effects {
             })
         )
     })
+
+    updateCourse$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateCourse),
+            exhaustMap((action) => {
+                this.store.dispatch(setLoadingSpinner({ isLoading: true }));
+                console.log('New Data: ', action.data);
+                
+
+                return this.coursesService.updateCourse(action.id, action.data).pipe(
+                    map((result) => {
+                        console.log(result);
+                        this.store.dispatch(setLoadingSpinner({ isLoading: false }));
+                        return updateCourseSuccess({ course: result });
+                    }),
+                    catchError((eResponse) => {
+                        console.log(eResponse);
+                        this.store.dispatch(setLoadingSpinner({ isLoading: false }));
+                        return of();
+                    })
+                )
+            })
+        )
+    });
 
 
 }

@@ -11,6 +11,15 @@ export const DELETE_COURSE_SUCCESS = '[courses v2 page] delete course success';
 
 export const SET_CREATE_COURSE_FORM_VISIABLE = '[courses v2 page] is create course form visiable';
 
+export const UPDATE_COURSE = '[courses v2 page] update course';
+export const UPDATE_COURSE_SUCCESS = '[courses v2 page] update course success';
+
+export const SET_EDIT_MODE = '[courses v2 page] set edit mode';
+
+export const setEditMode = createAction(SET_EDIT_MODE, props<{ isEditMode: boolean }>());
+
+export const SET_SELECTED_COURSE = '[courses v2 page] set selected course';
+
 export const loadCourses = createAction(LOAD_COURSES);
 export const loadCoursesSuccess = createAction(LOAD_COURSES_SUCCESS, props<{ courses: ICourseV2[] }>());
 
@@ -21,3 +30,8 @@ export const setCreateCourseFormVisiable = createAction(SET_CREATE_COURSE_FORM_V
 
 export const deleteCourse = createAction(DELETE_COURSE, props<{ courseId: string }>());
 export const deleteCourseSuccess = createAction(DELETE_COURSE_SUCCESS, props<{ courseId: string }>());
+
+export const setSelectedCourseToEdit = createAction(SET_SELECTED_COURSE, props<{ course: ICourseV2 }>());
+
+export const updateCourse = createAction(UPDATE_COURSE, props<{ id: string, data: ICourseV2 }>());
+export const updateCourseSuccess = createAction(UPDATE_COURSE_SUCCESS, props<{ course: ICourseV2 }>());

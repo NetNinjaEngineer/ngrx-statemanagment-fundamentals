@@ -4,7 +4,7 @@ import { CoursesV2State } from './store/coursesv2.state';
 import { Observable } from 'rxjs';
 import { ICourseV2 } from './models/courseV2.model';
 import { getCourses, getIsCreateCourseFormVisiable } from './store/coursesv2.selectors';
-import { deleteCourse, loadCourses, setCreateCourseFormVisiable } from './store/coursesv2.actions';
+import { deleteCourse, loadCourses, setCreateCourseFormVisiable, setEditMode, setSelectedCourseToEdit } from './store/coursesv2.actions';
 
 @Component({
   selector: 'app-coursesv2',
@@ -25,8 +25,10 @@ export class Coursesv2Component implements OnInit {
     this.store.dispatch(loadCourses());
   }
 
-  onEditCourse(course: ICourseV2) {
-    throw new Error('Method not implemented.');
+  onEditCourse(courseToEdit: ICourseV2) {
+    this.store.dispatch(setEditMode({ isEditMode: true }));
+    this.store.dispatch(setSelectedCourseToEdit({ course: courseToEdit }));
+    this.store.dispatch(setCreateCourseFormVisiable({ status: true }));
   }
   onDeleteCourse(courseId: string | undefined) {
     if (courseId) {

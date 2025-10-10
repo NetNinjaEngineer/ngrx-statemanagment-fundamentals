@@ -1,6 +1,6 @@
 <div class="modal-overlay">
     <div class="modal-content">
-        <h2>Create New Course</h2>
+        <h2> {{ !(isEditMode) ? 'Create New Course': 'Edit Course' }}</h2>
 
         <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
             <label>Title</label>

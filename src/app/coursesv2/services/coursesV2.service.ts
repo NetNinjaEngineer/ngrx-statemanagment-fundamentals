@@ -7,7 +7,6 @@ import { ICourseV2 } from '../models/courseV2.model';
     providedIn: 'root'
 })
 export class CoursesV2Service {
-
     constructor(private readonly httpClient: HttpClient) { }
 
     loadCourses(): Observable<ICourseV2[]> {
@@ -31,6 +30,10 @@ export class CoursesV2Service {
 
     deleteCourse(id: string) {
         return this.httpClient.delete(`https://ngrx-f4a2c-default-rtdb.firebaseio.com/courses/${id}.json`);
+    }
+
+    updateCourse(id: string, data: ICourseV2) {
+        return this.httpClient.put<ICourseV2>(`https://ngrx-f4a2c-default-rtdb.firebaseio.com/courses/${id}.json`, data)
     }
 
 }

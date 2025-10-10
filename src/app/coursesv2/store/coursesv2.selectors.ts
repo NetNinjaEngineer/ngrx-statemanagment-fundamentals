@@ -8,3 +8,7 @@ const getCoursesV2State = createFeatureSelector<CoursesV2State>(coursesV2Feature
 export const getCourses = createSelector(getCoursesV2State, state => state.courses);
 
 export const getIsCreateCourseFormVisiable = createSelector(getCoursesV2State, state => state.isCreateCourseFormVisible);
+
+export const getIsEditMode = createSelector(getCoursesV2State, state => state.isEditMode);
+
+export const getSelectedCourseToEdit = createSelector(getCoursesV2State, state => state.selectedCourseToEdit);
