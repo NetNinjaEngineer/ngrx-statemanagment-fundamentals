@@ -16,6 +16,8 @@ import { loggingInterceptor } from './core/interceptors/logging.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { CoreModule } from './core/core.module';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
 
 // export const LOGGER_SERVICE_TOKEN = new InjectionToken<LoggerService>('LoggerToken');
 
@@ -31,7 +33,8 @@ import { CoreModule } from './core/core.module';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([AuthEffects]),
     SharedModule,
-    CoreModule
+    CoreModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [
     provideHttpClient(

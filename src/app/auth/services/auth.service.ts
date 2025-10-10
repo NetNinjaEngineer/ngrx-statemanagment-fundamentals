@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { ILoginResponse } from '../models/loginResponse';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
-import { FIREBASE_API_KEY } from '../../constants';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/auth.state';
 import { logout } from '../store/auth.actions';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +20,12 @@ export class AuthService {
     private readonly store: Store<{ auth: AuthState }>) { }
 
   login(email: string, password: string): Observable<ILoginResponse> {
-    return this.httpClient.post<ILoginResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`, { email, password, returnSecureToken: true });
+    return this.httpClient.post<ILoginResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseConfig.apiKey}`, { email, password, returnSecureToken: true });
   }
 
 
   register(email: string, password: string): Observable<ILoginResponse> {
-    return this.httpClient.post<ILoginResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`, { email, password, returnSecureToken: true });
+    return this.httpClient.post<ILoginResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseConfig.apiKey}`, { email, password, returnSecureToken: true });
   }
 
   formatUser(userData: ILoginResponse): User {
