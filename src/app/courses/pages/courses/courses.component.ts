@@ -7,7 +7,7 @@ import { ICourse } from '../../models/course.model';
 import { CoursesState } from '../../store/courses.state';
 import { ICourseFilter } from '../../models/courseFilter';
 import { CoursesService } from '../../services/courses.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -26,12 +26,19 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   constructor(private readonly store: Store<{ courses: CoursesState }>,
     private readonly coursesService: CoursesService,
-    private _router: Router
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
 
-    console.log(this.coursesService.doSomething());
+    this._activatedRoute.queryParamMap.subscribe(queryParams => {
+      const searchQuery = queryParams.get('search');
+      if (searchQuery !== null) {
+        this.store.dispatch(searchCourses({ searchTerm: searchQuery }))
+      }
+
+    });
 
     this.store.dispatch(loadCourses());
 
