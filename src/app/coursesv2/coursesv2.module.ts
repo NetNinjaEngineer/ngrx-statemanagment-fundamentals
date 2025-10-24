@@ -11,13 +11,15 @@ import { coursesV2Reducer } from './store/coursesv2.reducer';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { CreateCourseButtonComponent } from './components/create-course-button/create-course-button.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CourseDetailsComponent } from './components/course-details/course-details.component';
 
 
 @NgModule({
   declarations: [
     Coursesv2Component,
     CreateCourseComponent,
-    CreateCourseButtonComponent
+    CreateCourseButtonComponent,
+    CourseDetailsComponent
   ],
   imports: [
     SharedModule,

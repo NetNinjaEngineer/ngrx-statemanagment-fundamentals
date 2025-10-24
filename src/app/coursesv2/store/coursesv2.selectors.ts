@@ -12,3 +12,9 @@ export const getIsCreateCourseFormVisiable = createSelector(getCoursesV2State, s
 export const getIsEditMode = createSelector(getCoursesV2State, state => state.isEditMode);
 
 export const getSelectedCourseToEdit = createSelector(getCoursesV2State, state => state.selectedCourseToEdit);
+
+export const getCourseById = (id: string) => {
+    return createSelector(getCoursesV2State, state => {
+        return state.courses.find(c => c.id === id);
+    })
+}

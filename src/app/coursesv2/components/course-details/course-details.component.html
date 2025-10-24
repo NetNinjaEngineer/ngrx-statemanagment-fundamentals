@@ -1,0 +1,64 @@
+<div class="course-details">
+  <div class="header">
+    <img
+      [src]="(selectedCourse$|async)?.image"
+      [alt]="(selectedCourse$|async)?.title"
+      class="course-image"
+    />
+
+    <div class="info">
+      <h1>{{ (selectedCourse$|async)?.title }}</h1>
+      <p class="category">{{ (selectedCourse$|async)?.category }}</p>
+      <p class="description">
+        {{ (selectedCourse$|async)?.description }}
+      </p>
+
+      <div class="meta">
+        <span><strong>Instructor:</strong> {{ (selectedCourse$|async)?.instructor }}</span>
+        <span><strong>Duration:</strong> {{ (selectedCourse$|async)?.duration }}h</span>
+        <span><strong>Rating:</strong> ⭐ {{ (selectedCourse$|async)?.rating }}</span>
+      </div>
+
+      <div class="actions">
+        <button class="enroll-btn">Enroll Now - {{ (selectedCourse$|async)?.price }}</button>
+        <span class="status active">Active</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lessons">
+    <h2>Course Lessons</h2>
+    <ul>
+      <li>
+        <div class="lesson-info">
+          <h3>Introduction to Angular</h3>
+          <span class="lesson-duration">10m</span>
+        </div>
+      </li>
+      <li>
+        <div class="lesson-info">
+          <h3>Understanding Components</h3>
+          <span class="lesson-duration">25m</span>
+        </div>
+      </li>
+      <li>
+        <div class="lesson-info">
+          <h3>Signals vs Observables</h3>
+          <span class="lesson-duration">30m</span>
+        </div>
+      </li>
+      <li>
+        <div class="lesson-info">
+          <h3>Building a Course App</h3>
+          <span class="lesson-duration">45m</span>
+        </div>
+      </li>
+      <li>
+        <div class="lesson-info">
+          <h3>Deploying to Production</h3>
+          <span class="lesson-duration">20m</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

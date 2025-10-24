@@ -1,44 +1,79 @@
 <div class="modal-overlay">
-    <div class="modal-content">
-        <h2> {{ !(isEditMode) ? 'Create New Course': 'Edit Course' }}</h2>
-
-        <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-            <label>Title</label>
-            <input formControlName="title" type="text" />
-
-            <label>Description</label>
-            <textarea formControlName="description"></textarea>
-
-            <label>Image</label>
-            <input type="file" accept="image/*" (change)="onFileChanged($event)" />
-
-            <label>Author</label>
-            <input formControlName="author" type="text" />
-
-            <label>Instructor</label>
-            <input formControlName="instructor" type="text" />
-
-            <label>Category</label>
-            <input formControlName="category" type="text" />
-
-            <label>Price</label>
-            <input formControlName="price" type="number" />
-
-            <label>Duration (hrs)</label>
-            <input formControlName="duration" type="number" />
-
-            <label>Rating (0-5)</label>
-            <input formControlName="rating" type="number" />
-
-            <label>
-                <input formControlName="isActive" type="checkbox" />
-                Active
-            </label>
-
-            <div class="modal-actions">
-                <button type="submit" [disabled]="courseForm.invalid"> Save </button>
-                <button type="button" (click)="close()">Cancel</button>
-            </div>
-        </form>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>
+        <i class="bi bi-journal-plus"></i>
+        {{ !(isEditMode) ? 'Create New Course' : 'Edit Course' }}
+      </h2>
     </div>
+
+    <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label><i class="bi bi-type"></i> Title</label>
+          <input formControlName="title" type="text" placeholder="Enter course title..." />
+        </div>
+
+        <div class="form-group">
+          <label><i class="bi bi-card-text"></i> Description</label>
+          <textarea formControlName="description" placeholder="Brief course description..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label><i class="bi bi-image"></i> Image</label>
+          <input type="file" accept="image/*" (change)="onFileChanged($event)" />
+        </div>
+
+        <div class="form-group">
+          <label><i class="bi bi-person"></i> Author</label>
+          <input formControlName="author" type="text" placeholder="Author name" />
+        </div>
+
+        <div class="form-group">
+          <label><i class="bi bi-mortarboard"></i> Instructor</label>
+          <input formControlName="instructor" type="text" placeholder="Instructor name" />
+        </div>
+
+        <div class="form-group">
+          <label><i class="bi bi-tags"></i> Category</label>
+          <input formControlName="category" type="text" placeholder="Category name" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group half">
+            <label><i class="bi bi-cash-stack"></i> Price</label>
+            <input formControlName="price" type="number" placeholder="0.00" />
+          </div>
+
+          <div class="form-group half">
+            <label><i class="bi bi-clock-history"></i> Duration (hrs)</label>
+            <input formControlName="duration" type="number" placeholder="e.g. 12" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group half">
+            <label><i class="bi bi-star-half"></i> Rating</label>
+            <input formControlName="rating" type="number" placeholder="0–5" />
+          </div>
+
+          <div class="form-group half checkbox-group">
+            <label class="checkbox-label">
+              <input formControlName="isActive" type="checkbox" />
+              <span>Active Course</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="submit" [disabled]="courseForm.invalid">
+          <i class="bi bi-check-circle-fill"></i> Save
+        </button>
+        <button type="button" (click)="close()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

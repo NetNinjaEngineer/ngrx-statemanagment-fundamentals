@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { ICourseV2 } from './models/courseV2.model';
 import { getCourses, getIsCreateCourseFormVisiable } from './store/coursesv2.selectors';
 import { deleteCourse, loadCourses, setCreateCourseFormVisiable, setEditMode, setSelectedCourseToEdit } from './store/coursesv2.actions';
+import { SharedState } from '../shared/store/shared.state';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-coursesv2',
@@ -13,10 +15,13 @@ import { deleteCourse, loadCourses, setCreateCourseFormVisiable, setEditMode, se
   styleUrl: './coursesv2.component.css'
 })
 export class Coursesv2Component implements OnInit {
+
   courses$!: Observable<ICourseV2[]>;
   isCreateCourseFormVisible$!: Observable<boolean>;
 
-  constructor(private readonly store: Store<{ coursesv2: CoursesV2State }>) {
+  constructor(private readonly store: Store<{ coursesv2: CoursesV2State, shared: SharedState }>,
+    private readonly router: Router
+  ) {
     this.courses$ = this.store.select(getCourses);
     this.isCreateCourseFormVisible$ = this.store.select(getIsCreateCourseFormVisiable);
   }
@@ -40,6 +45,10 @@ export class Coursesv2Component implements OnInit {
 
   onCreateCourse() {
     this.store.dispatch(setCreateCourseFormVisiable({ status: true }));
+  }
+
+  onViewCourse(selectedCourse: ICourseV2) {
+    this.router.navigate(['coursesv2', 'course', selectedCourse.id]);
   }
 
 }

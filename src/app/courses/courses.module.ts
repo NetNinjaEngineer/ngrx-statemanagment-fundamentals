@@ -26,8 +26,7 @@ import { CourseDetailsComponent } from './pages/course-details/course-details.co
     FormsModule,
     ReactiveFormsModule,
     CoursesRoutingModule,
-    StoreModule.forFeature('courses', coursesReducer),
-    // EffectsModule.forFeature([CoursesEffects])
+    StoreModule.forFeature('courses', coursesReducer)
   ],
   exports: []
 })

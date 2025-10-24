@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { catchError, exhaustMap, map, mergeMap, of } from "rxjs";
 import { SharedState } from "../../shared/store/shared.state";
-import { setLoadingSpinner } from "../../shared/store/shared.actions";
+import { setErrorMessage, setLoadingSpinner } from "../../shared/store/shared.actions";
 import { CoursesV2State } from "./coursesv2.state";
 import { CoursesV2Service } from "../services/coursesV2.service";
 import { createCourse, createCourseSuccess, deleteCourse, deleteCourseSuccess, loadCourses, loadCoursesSuccess, updateCourse, updateCourseSuccess } from "./coursesv2.actions";
@@ -29,6 +29,8 @@ export class CoursesV2Effects {
                     catchError((err) => {
                         console.log(err);
                         this.store.dispatch(setLoadingSpinner({ isLoading: false }));
+                        this.store.dispatch(setErrorMessage({ message: err.error.error }))
+
                         return of();
                     })
                 )
@@ -84,7 +86,7 @@ export class CoursesV2Effects {
             exhaustMap((action) => {
                 this.store.dispatch(setLoadingSpinner({ isLoading: true }));
                 console.log('New Data: ', action.data);
-                
+
 
                 return this.coursesService.updateCourse(action.id, action.data).pipe(
                     map((result) => {

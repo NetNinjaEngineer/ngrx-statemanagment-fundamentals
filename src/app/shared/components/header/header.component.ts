@@ -25,4 +25,11 @@ export class HeaderComponent implements OnInit {
     onLogout() {
         this.store.dispatch(logout())
     }
+
+    isMenuOpen = false;
+
+    toggleMenu() {
+        this.isMenuOpen = !this.isMenuOpen;
+    }
+
 }

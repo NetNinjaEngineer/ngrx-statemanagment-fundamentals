@@ -1,47 +1,61 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <a class="navbar-brand text-warning fw-bold" routerLink="/home">NGRX</a>
+<nav class="navbar">
+  <div class="nav-container">
+    <a class="nav-brand" routerLink="/home">NGRX</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <button
+      class="nav-toggle"
+      [class.active]="isMenuOpen"
+      (click)="toggleMenu()"
+      aria-label="Toggle navigation">
+      <span class="hamburger"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
+    <div class="nav-menu" [class.active]="isMenuOpen">
+      <ul class="nav-list">
+        <li class="nav-item user-info" *ngIf="loggedInUser$ | async as user">
+          <span class="user-email">{{ user.Email }}</span>
+        </li>
 
-            <li><a href="#"> {{ (loggedInUser$ | async)?.Email }} </a></li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active" (click)="isMenuOpen = false">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/counter" routerLinkActive="active" (click)="isMenuOpen = false">
+            Counter
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/courses" routerLinkActive="active" (click)="isMenuOpen = false">
+            Courses
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/coursesv2" routerLinkActive="active" (click)="isMenuOpen = false">
+            Coursesv2
+          </a>
+        </li>
 
-            <li class="nav-item">
-                <!-- absolute path -->
-                <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/posts" routerLinkActive="active">Posts</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/counter" routerLinkActive="active">Counter</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/courses" routerLinkActive="active">Courses</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/courses2" routerLinkActive="active">Courses2</a>
-            </li>
-            <li class="nav-item" *ngIf="isAuthenticated$ | async; else auth">
-                <button class="btn logout-btn" (click)="onLogout()">
-                    Logout
-                </button>
-            </li>
+        <li class="nav-item" *ngIf="isAuthenticated$ | async; else auth">
+          <button class="logout-btn" (click)="onLogout(); isMenuOpen = false">
+            Logout
+          </button>
+        </li>
 
-
-            <ng-template #auth>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/auth/register" routerLinkActive="active">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/auth/login" routerLinkActive="active">Login</a>
-                </li>
-            </ng-template>
-        </ul>
+        <ng-template #auth>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/auth/register" routerLinkActive="active" (click)="isMenuOpen = false">
+              Register
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/auth/login" routerLinkActive="active" (click)="isMenuOpen = false">
+              Login
+            </a>
+          </li>
+        </ng-template>
+      </ul>
     </div>
+  </div>
 </nav>
