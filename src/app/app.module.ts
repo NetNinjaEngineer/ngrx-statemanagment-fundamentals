@@ -1,3 +1,4 @@
+import { CustomSerializer } from './router/custom-serializer';
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,7 +42,9 @@ import { provideRouterStore, routerReducer } from '@ngrx/router-store';
     provideHttpClient(
       withInterceptors([authInterceptor, loggingInterceptor])
     ),
-    provideRouterStore()
+    provideRouterStore({
+      serializer: CustomSerializer
+    })
   ],
   bootstrap: [AppComponent]
 })

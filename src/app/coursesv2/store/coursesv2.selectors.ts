@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { CoursesV2State } from "./coursesv2.state";
+import { getParams } from "../../router/router.selectors";
 
 export const coursesV2FeatureKey = "coursesv2";
 
@@ -13,8 +14,10 @@ export const getIsEditMode = createSelector(getCoursesV2State, state => state.is
 
 export const getSelectedCourseToEdit = createSelector(getCoursesV2State, state => state.selectedCourseToEdit);
 
-export const getCourseById = (id: string) => {
-    return createSelector(getCoursesV2State, state => {
-        return state.courses.find(c => c.id === id);
-    })
-}
+export const getCourseById = createSelector(
+    getCoursesV2State,
+    getParams,
+    (state, params) => {
+        return state.courses.find(c => c.id === params['id']);
+    }
+)

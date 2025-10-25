@@ -1,4 +1,4 @@
-<div class="course-details">
+<div class="course-details" *ngIf="selectedCourse$|async; else dummy">
   <div class="header">
     <img
       [src]="(selectedCourse$|async)?.image"
@@ -62,3 +62,8 @@
     </ul>
   </div>
 </div>
+
+
+<ng-template #dummy>
+  <h2>Can not show the details of the selected course</h2>
+</ng-template>

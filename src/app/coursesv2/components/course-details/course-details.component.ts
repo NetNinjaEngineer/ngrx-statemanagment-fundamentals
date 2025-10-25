@@ -13,21 +13,12 @@ import { ICourseV2 } from '../../models/courseV2.model';
   styleUrl: './course-details.component.css'
 })
 export class CourseDetailsComponent implements OnInit {
-  selectedCourseId: string | null = null;
   selectedCourse$!: Observable<ICourseV2 | undefined>;
 
-  constructor(private readonly activatedRoute: ActivatedRoute,
-    private readonly store: Store<{ coursesv2: CoursesV2State }>
-  ) {
-    this.activatedRoute.paramMap.subscribe((params) => {
-      this.selectedCourseId = params.get('id');
-    })
-  }
+  constructor(private readonly store: Store<{ coursesv2: CoursesV2State }>) { }
 
   ngOnInit(): void {
-    if (this.selectedCourseId !== null) {
-      this.selectedCourse$ = this.store.select(getCourseById(this.selectedCourseId));
-    }
+    this.selectedCourse$ = this.store.select(getCourseById);
   }
 
 
