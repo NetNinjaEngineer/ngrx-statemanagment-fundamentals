@@ -29,7 +29,7 @@ export class Coursesv2Component implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(loadCourses());
   }
-
+  
   onEditCourse(courseToEdit: ICourseV2) {
     // this.store.dispatch(setEditMode({ isEditMode: true }));
     // this.store.dispatch(setSelectedCourseToEdit({ course: courseToEdit }));

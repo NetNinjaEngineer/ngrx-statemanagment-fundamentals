@@ -1,19 +1,27 @@
 import { createReducer, on } from "@ngrx/store";
-import { initialState } from "./coursesv2.state";
+import { coursesAdapter, initialState } from "./coursesv2.state";
 import { createCourseSuccess, deleteCourseSuccess, loadCoursesSuccess, setCreateCourseFormVisiable, setEditMode, setSelectedCourseToEdit, updateCourse, updateCourseSuccess } from "./coursesv2.actions";
 
-export const coursesV2Reducer = createReducer(initialState,
-    on(loadCoursesSuccess, (state, { courses }) => {
-        return {
-            ...state,
-            courses: [...courses]
-        }
+export const coursesV2Reducer = createReducer(
+    initialState,
+
+    on(loadCoursesSuccess, (state, { courses }) => coursesAdapter.setAll(courses, state)),
+
+    on(createCourseSuccess, (state, action) => coursesAdapter.addOne(action.course, state)),
+
+    on(deleteCourseSuccess, (state, action) => coursesAdapter.removeOne(action.courseId, state)),
+
+    on(updateCourseSuccess, (state, { course }) => {
+        return coursesAdapter.updateOne({
+            id: course.id,
+            changes: course
+        }, state);
     }),
 
-    on(createCourseSuccess, (state, action) => {
+    on(setEditMode, (state, action) => {
         return {
             ...state,
-            courses: [...state.courses, action.course]
+            isEditMode: action.isEditMode
         }
     }),
 
@@ -24,21 +32,6 @@ export const coursesV2Reducer = createReducer(initialState,
         }
     }),
 
-    on(deleteCourseSuccess, (state, action) => {
-        const updatedCourses = state.courses.filter(c => c.id !== action.courseId);
-        return {
-            ...state,
-            courses: updatedCourses
-        }
-    }),
-
-    on(setEditMode, (state, action) => {
-        return {
-            ...state,
-            isEditMode: action.isEditMode
-        }
-    }),
-
     on(setSelectedCourseToEdit, (state, action) => {
         return {
             ...state,
@@ -46,17 +39,4 @@ export const coursesV2Reducer = createReducer(initialState,
         }
     }),
 
-    on(updateCourseSuccess, (state, action) => {
-        const updatedCourses = state.courses.map(c => {
-            if (c.id === action.course.id)
-                return action.course;
-            else
-                return c;
-        });
-
-        return {
-            ...state,
-            courses: updatedCourses
-        }
-    })
 )
