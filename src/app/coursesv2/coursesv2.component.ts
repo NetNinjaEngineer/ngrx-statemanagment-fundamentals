@@ -31,8 +31,9 @@ export class Coursesv2Component implements OnInit {
   }
 
   onEditCourse(courseToEdit: ICourseV2) {
-    this.store.dispatch(setEditMode({ isEditMode: true }));
-    this.store.dispatch(setSelectedCourseToEdit({ course: courseToEdit }));
+    // this.store.dispatch(setEditMode({ isEditMode: true }));
+    // this.store.dispatch(setSelectedCourseToEdit({ course: courseToEdit }));
+    this.router.navigateByUrl(`/coursesv2?id=${courseToEdit.id}&edit=true`);
     this.store.dispatch(setCreateCourseFormVisiable({ status: true }));
   }
   onDeleteCourse(courseId: string | undefined) {
@@ -44,6 +45,7 @@ export class Coursesv2Component implements OnInit {
   }
 
   onCreateCourse() {
+    this.router.navigateByUrl('/coursesv2?edit=false');
     this.store.dispatch(setCreateCourseFormVisiable({ status: true }));
   }
 

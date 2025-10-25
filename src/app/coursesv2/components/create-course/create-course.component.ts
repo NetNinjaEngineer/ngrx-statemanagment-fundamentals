@@ -5,8 +5,9 @@ import { CloudinaryUploadService } from '../../../core/services/cloudinary-uploa
 import { Observable, Subscription } from 'rxjs';
 import { CoursesV2State } from '../../store/coursesv2.state';
 import { createCourse, setCreateCourseFormVisiable, updateCourse } from '../../store/coursesv2.actions';
-import { getIsEditMode, getSelectedCourseToEdit } from '../../store/coursesv2.selectors';
+import { getCourseByIdQueryParams } from '../../store/coursesv2.selectors';
 import { ICourseV2 } from '../../models/courseV2.model';
+import { getQueryParams } from '../../../router/router.selectors';
 
 @Component({
     selector: 'app-create-course',
@@ -20,7 +21,7 @@ export class CreateCourseComponent implements OnDestroy, OnInit {
     selectedFile: File | null = null;
     cloudinaryUploadSubscription: Subscription | null = null;
     isEditMode!: boolean;
-    selectCourseToEdit!: ICourseV2 | null;
+    selectCourseToEdit!: ICourseV2 | undefined;
 
     constructor(
         private fb: FormBuilder,
@@ -39,11 +40,11 @@ export class CreateCourseComponent implements OnDestroy, OnInit {
             category: ['', Validators.required]
         });
 
-        this.store.select(getIsEditMode).subscribe((status) => {
-            this.isEditMode = status;
+        this.store.select(getQueryParams).subscribe((queryParams) => {
+            this.isEditMode = JSON.parse(queryParams['edit']);
         });
 
-        this.store.select(getSelectedCourseToEdit).subscribe((selectedCourse) => {
+        this.store.select(getCourseByIdQueryParams).subscribe((selectedCourse) => {
             this.selectCourseToEdit = selectedCourse;
 
             if (this.isEditMode && this.selectCourseToEdit) {
