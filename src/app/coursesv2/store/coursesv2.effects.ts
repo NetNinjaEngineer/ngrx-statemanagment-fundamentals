@@ -1,12 +1,13 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, exhaustMap, map, mergeMap, of } from "rxjs";
+import { catchError, exhaustMap, filter, map, mergeMap, of, switchMap, withLatestFrom } from "rxjs";
 import { SharedState } from "../../shared/store/shared.state";
 import { setErrorMessage, setLoadingSpinner } from "../../shared/store/shared.actions";
 import { CoursesV2State } from "./coursesv2.state";
 import { CoursesV2Service } from "../services/coursesV2.service";
 import { createCourse, createCourseSuccess, deleteCourse, deleteCourseSuccess, loadCourses, loadCoursesSuccess, updateCourse, updateCourseSuccess } from "./coursesv2.actions";
+import { selectCoursesLoaded } from "./coursesv2.selectors";
 
 @Injectable()
 export class CoursesV2Effects {
@@ -18,7 +19,10 @@ export class CoursesV2Effects {
     loadCourses$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(loadCourses),
-            mergeMap((action) => {
+            withLatestFrom(this.store.select(selectCoursesLoaded)),
+            filter(([_, loaded]) => !loaded),
+            switchMap((action) => {
+
                 this.store.dispatch(setLoadingSpinner({ isLoading: true }));
                 return this.coursesService.loadCourses().pipe(
                     map((response) => {

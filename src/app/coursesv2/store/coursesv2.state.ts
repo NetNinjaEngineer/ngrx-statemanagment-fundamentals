@@ -18,10 +18,12 @@ import { createEntityAdapter, EntityState } from "@ngrx/entity";
 export const coursesAdapter = createEntityAdapter<ICourseV2>();
 
 export interface CoursesV2State extends EntityState<ICourseV2> {
-    isCreateCourseFormVisible: boolean
+    isCreateCourseFormVisible: boolean,
+    loaded: boolean
 }
 
 export const initialState: CoursesV2State = coursesAdapter.getInitialState({
-    isCreateCourseFormVisible: false
+    isCreateCourseFormVisible: false,
+    loaded: false
 });
 

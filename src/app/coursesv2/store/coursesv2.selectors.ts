@@ -4,7 +4,7 @@ import { getParams, getQueryParams } from "../../router/router.selectors";
 
 export const coursesV2FeatureKey = "coursesv2";
 
-const {selectAll} = coursesAdapter.getSelectors();
+const { selectAll } = coursesAdapter.getSelectors();
 
 const getCoursesV2State = createFeatureSelector<CoursesV2State>(coursesV2FeatureKey);
 
@@ -31,3 +31,6 @@ export const getCourseByIdQueryParams = createSelector(
         return selectAll(state).find(c => c.id === params['id']);
     }
 )
+
+
+export const selectCoursesLoaded = createSelector(getCoursesV2State, state => state.loaded);

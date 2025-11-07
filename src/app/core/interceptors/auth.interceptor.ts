@@ -3,12 +3,13 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getAccessToken } from '../../auth/store/auth.selectors';
-import { exhaustMap } from 'rxjs';
+import { exhaustMap, take } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const store = inject(Store<{ auth: AuthState }>);
 
     return store.select(getAccessToken).pipe(
+        take(1),
         exhaustMap((token) => {
             if (!token) {
                 return next(req);

@@ -4,7 +4,6 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
-import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -15,7 +14,7 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     SharedModule,
     AuthRoutingModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AuthModule { }

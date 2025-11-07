@@ -5,7 +5,7 @@ import { createCourseSuccess, deleteCourseSuccess, loadCoursesSuccess, setCreate
 export const coursesV2Reducer = createReducer(
     initialState,
 
-    on(loadCoursesSuccess, (state, { courses }) => coursesAdapter.setAll(courses, state)),
+    on(loadCoursesSuccess, (state, { courses }) => coursesAdapter.setAll(courses, { ...state, loaded: true })),
 
     on(createCourseSuccess, (state, action) => coursesAdapter.addOne(action.course, state)),
 
