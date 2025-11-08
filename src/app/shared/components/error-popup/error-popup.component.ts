@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SharedState } from '../../store/shared.state';
 import { setErrorMessage } from '../../store/shared.actions';
@@ -10,7 +10,7 @@ import { setErrorMessage } from '../../store/shared.actions';
     standalone: false
 })
 export class ErrorPopupComponent implements OnInit {
-  @Input({ required: true }) errorMessage: string | null = '';
+  readonly errorMessage = input.required<string | null>();
 
   constructor(private readonly store: Store<{ shared: SharedState }>) { }
 

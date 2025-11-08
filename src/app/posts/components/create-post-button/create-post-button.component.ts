@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output } from '@angular/core';
 
 @Component({
     selector: 'app-create-post-button',
@@ -8,9 +8,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class CreatePostButtonComponent {
 
-  @Output() createPostBtnClicked = new EventEmitter<void>();
+  readonly createPostBtnClicked = output<void>();
 
   onCreatePost() {
+    // TODO: The 'emit' function requires a mandatory void argument
     this.createPostBtnClicked.emit();
   }
 

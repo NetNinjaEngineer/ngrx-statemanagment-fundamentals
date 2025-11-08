@@ -1,15 +1,15 @@
 
-<app-header></app-header>
+<app-header />
 <main>
     @if (showLoading$ | async) {
-    <app-shared-loading-spinner></app-shared-loading-spinner>
+    <app-shared-loading-spinner />
     }
 
     @if (errorMessage$| async) {
-    <app-error-popup [errorMessage]="errorMessage$|async"></app-error-popup>
+    <app-error-popup [errorMessage]="errorMessage$|async" />
     }
 
-    <router-outlet></router-outlet>
+    <router-outlet />
 </main>
 
 <!-- <div class="data-list" id="container"></div>

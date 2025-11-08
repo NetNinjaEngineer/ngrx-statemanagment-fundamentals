@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { CoursesState } from '../../store/courses.state';
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 export class CreateCourseModalComponent implements OnInit, OnDestroy {
 
   courseForm: FormGroup;
-  @Input({ required: true }) isEditMode: boolean = false;
+  readonly isEditMode = input.required<boolean>();
   selectedCourse: ICourse | null = null;
 
   selectedCourseSubscription!: Subscription;
@@ -39,7 +39,7 @@ export class CreateCourseModalComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.selectedCourseSubscription = this.store.select(getSelectedCourse).subscribe(course => {
       this.selectedCourse = course;
-      if (this.isEditMode && this.selectedCourse) {
+      if (this.isEditMode() && this.selectedCourse) {
         this.courseForm.patchValue(this.selectedCourse);
       } else {
         this.courseForm.reset();
@@ -50,7 +50,7 @@ export class CreateCourseModalComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.courseForm.valid) {
 
-      if (this.isEditMode) {
+      if (this.isEditMode()) {
         const updatedCourse: ICourse = { ...this.selectedCourse, ...this.courseForm.value } as ICourse;
         this.store.dispatch(updateCourse({ course: updatedCourse }));
         this.store.dispatch(setCreateCourseFormVisible({ showCreateCourse: false }));

@@ -35,9 +35,8 @@ import { provideRouterStore, routerReducer } from '@ngrx/router-store';
     EffectsModule.forRoot([AuthEffects]),
     SharedModule,
     CoreModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    Coursesv2Module,
-  ],
+    AngularFireModule.initializeApp(environment.firebaseConfig)
+    ],
   providers: [
     provideHttpClient(
       withInterceptors([authInterceptor, loggingInterceptor])

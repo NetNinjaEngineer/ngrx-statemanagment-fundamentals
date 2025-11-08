@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output } from '@angular/core';
 
 @Component({
   selector: 'app-create-course-button',
@@ -8,9 +8,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class CreateCourseButtonComponent {
 
-  @Output() createCourseClicked = new EventEmitter<void>();
+  readonly createCourseClicked = output<void>();
 
   onCreateCourse() {
+    // TODO: The 'emit' function requires a mandatory void argument
     this.createCourseClicked.emit();
   }
 

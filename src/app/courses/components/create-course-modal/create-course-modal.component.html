@@ -1,6 +1,6 @@
 <div class="modal-overlay">
     <div class="modal-content">
-        <h2>{{ !isEditMode ? 'Create New Course' : 'Update the course' }}</h2>
+        <h2>{{ !isEditMode() ? 'Create New Course' : 'Update the course' }}</h2>
 
         <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
             <label>Title</label>
@@ -36,8 +36,8 @@
             </label>
 
             <div class="modal-actions">
-                <button type="submit" [disabled]="courseForm.invalid">{{ !isEditMode ? 'Save' : 'Update' }}</button>
-                <button type="button" (click)="close()" *ngIf="!isEditMode">Cancel</button>
+                <button type="submit" [disabled]="courseForm.invalid">{{ !isEditMode() ? 'Save' : 'Update' }}</button>
+                <button type="button" (click)="close()" *ngIf="!isEditMode()">Cancel</button>
             </div>
         </form>
     </div>

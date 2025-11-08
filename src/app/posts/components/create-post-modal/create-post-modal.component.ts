@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit, output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { IPost } from '../../models/post.model';
 import { Store } from '@ngrx/store';
@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 })
 export class CreatePostModalComponent implements OnInit, OnDestroy {
 
-  @Output() onCloseModalBtnClicked = new EventEmitter<void>();
+  readonly onCloseModalBtnClicked = output<void>();
 
   postForm!: FormGroup;
 
@@ -67,6 +67,7 @@ export class CreatePostModalComponent implements OnInit, OnDestroy {
 
 
   onCloseModalClicked() {
+    // TODO: The 'emit' function requires a mandatory void argument
     this.onCloseModalBtnClicked.emit();
   }
 

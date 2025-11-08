@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output } from '@angular/core';
 
 @Component({
     selector: 'app-search-courses',
@@ -7,8 +7,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
     standalone: false
 })
 export class SearchCoursesComponent {
-  @Output()
-  onSearchChanged: EventEmitter<string> = new EventEmitter<string>();
+  readonly onSearchChanged = output<string>();
 
   onSearch(searchElement: HTMLInputElement) {
     const searchValue = searchElement.value;

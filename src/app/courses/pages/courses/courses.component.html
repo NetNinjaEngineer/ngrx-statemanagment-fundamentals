@@ -1,20 +1,19 @@
 <div class="courses-container">
 
     <div class="create-course-container">
-        <app-create-course-button (createCourseClicked)="onCreateCourse()"></app-create-course-button>
+        <app-create-course-button (createCourseClicked)="onCreateCourse()" />
     </div>
 
-    <app-create-course-modal *ngIf="isCreateCourseFormVisible$ | async" [isEditMode]="isEditMode">
-    </app-create-course-modal>
+    <app-create-course-modal *ngIf="isCreateCourseFormVisible$ | async" [isEditMode]="isEditMode" />
 
 
     <!-- Controls -->
     <div class="controls">
         <div class="search-box">
-            <app-search-courses (onSearchChanged)="searchCourses($event)"></app-search-courses>
+            <app-search-courses (onSearchChanged)="searchCourses($event)" />
         </div>
         <div class="filter-box">
-            <app-course-filter (coursesFilterChanged)="coursesFilterChanged($event)"></app-course-filter>
+            <app-course-filter (coursesFilterChanged)="coursesFilterChanged($event)" />
         </div>
     </div>
 

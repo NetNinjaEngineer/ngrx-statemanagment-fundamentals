@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { ICourseFilter } from '../../models/courseFilter';
 
 @Component({
@@ -16,8 +16,7 @@ export class CourseFilterComponent {
   categories: string[] = ["Frontend", "Backend", "Web Development"];
   instructors: string[] = ["Jane Smith", "John Doe", "Mike Johnson"];
 
-  @Output()
-  coursesFilterChanged: EventEmitter<ICourseFilter> = new EventEmitter<ICourseFilter>();
+  readonly coursesFilterChanged = output<ICourseFilter>();
 
   applyFilters() {
     this.coursesFilterChanged.emit({

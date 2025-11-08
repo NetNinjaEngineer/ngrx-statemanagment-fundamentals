@@ -1,9 +1,9 @@
 <div class="posts-cards">
 
-    <app-create-post-button (createPostBtnClicked)="onCreatePostClicked()"></app-create-post-button>
+    <app-create-post-button (createPostBtnClicked)="onCreatePostClicked()" />
 
     <app-create-post-modal *ngIf="isCreatePostFormVisible$ | async"
-        (onCloseModalBtnClicked)="onCloseModal()"></app-create-post-modal>
+        (onCloseModalBtnClicked)="onCloseModal()" />
 
 
     <div class="card" *ngFor="let post of posts$ | async">
